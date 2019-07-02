@@ -1,0 +1,9 @@
+# Application
+Django==2.2.2
+djangorestframework
+
+# Database
+psycopg2-binary
+
+# Code quality
+black
