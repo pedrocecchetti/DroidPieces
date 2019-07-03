@@ -1,11 +1,14 @@
 from django.shortcuts import render
 
 from rest_framework import generics, permissions
+from rest_framework import views
 
 from core.models.demmand import Demmand
 from core.models.address import Address
 from api.serializers import UserSerializer, DemmandSerializer, AddressSerializer
 from api.permissions import IsOwnerOrReadOnly
+
+
 
 
 class DemmandList(generics.ListCreateAPIView):
@@ -30,5 +33,3 @@ class AddressList(generics.ListCreateAPIView):
 class AddressDetail(generics.RetrieveUpdateAPIView):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
-
-# Create your views here.
