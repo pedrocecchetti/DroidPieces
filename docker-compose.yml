@@ -1,0 +1,38 @@
+version: '3'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:11.2-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: droidpieces
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  app:
+    depends_on:
+      - postgres
+    image: droidpieces
+    ports:
+      - "8000:8000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    command: >
+      bash -c "python manage.py migrate && 
+               python manage.py runserver 0.0.0.0:8000"
+    environment:
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_NAME: droidpieces
+      DB_HOST: postgres
+      DB_PORT: 5432
