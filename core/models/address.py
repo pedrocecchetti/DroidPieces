@@ -41,7 +41,7 @@ class Address(models.Model):
     state = models.CharField(max_length=2, choices=STATES, verbose_name="Estados")
     street = models.CharField(max_length=50, verbose_name='Logradouro')
     number = models.PositiveIntegerField(verbose_name='Número')
-    zip_code = models.CharField(max_length=9, verbose_name='CEP') 
+    zip_code = models.CharField(max_length=9, help_text='XXXXX-XXX', verbose_name='CEP') 
 
     class Meta:
         verbose_name = "Endereço"
