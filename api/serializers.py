@@ -28,7 +28,7 @@ class DemmandSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Demmand
-        fields = ('id','description', 'deliver_address', 'announcer')
+        fields = ('id','description', 'deliver_address', 'announcer','is_finalized')
 
     def create(self, validated_data):
         address_data = validated_data.pop('deliver_address')
@@ -45,3 +45,17 @@ class DemmandSerializer(serializers.ModelSerializer):
         demmand.save()
         
         return demmand
+
+    def update(self, instance, validated_data):
+        address_data = validated_data.pop('deliver_address')
+        instance.description = validated_data.get('description', instance.description)
+        address = Address.objects.create(
+            state=address_data['state'],
+            city=address_data['city'],
+            street=address_data['street'],
+            number=address_data['number']
+        )
+        instance.is_finalized = validated_data.get('is_finalized', instance.is_finalized)
+        instance.deliver_address = address
+        instance.save()
+        return instance
