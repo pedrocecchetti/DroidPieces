@@ -18,6 +18,7 @@ class Demmand(models.Model):
     deliver_address = models.ForeignKey(
         Address,
         on_delete=models.DO_NOTHING,
+        null=True,
         verbose_name='Endereço',
     )
 
@@ -27,8 +28,9 @@ class Demmand(models.Model):
         help_text="Usuário responsável pela criação do registro (produto).",
         verbose_name="Anunciante",
         on_delete=models.CASCADE,
-
     )
+
+    is_finalized = models.BooleanField(default=False, verbose_name='Demanda Finalizada?')
 
     # Monitoring
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Data de Criação')
