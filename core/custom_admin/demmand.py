@@ -9,7 +9,7 @@ class DemmandCustomAdmin(admin.ModelAdmin):
     readonly_fields = ["announcer", "created_at", "updated_at"]
 
     # The fields to be used in displaying the Gallery model.
-    list_display = ("announcer", "description", "deliver_address", "announcer")
+    list_display = ("description", "announcer", "is_finalized", "deliver_address",)
     list_filter = ("announcer", "description", "deliver_address", "created_at", "updated_at")
 
     # The fields to be used in updates on Gallery model.
@@ -18,7 +18,7 @@ class DemmandCustomAdmin(admin.ModelAdmin):
             "Informações básicas",
             {
                 "classes": ("grp-collapse grp-open",),
-                "fields": ("description","deliver_address"),
+                "fields": ("description","deliver_address", "is_finalized"),
             },
         ),
         (
